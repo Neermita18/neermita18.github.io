@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neermita | Portfolio</title>
+    <style>
+        /* --- 1. VARIABLES & THEMES --- */
+        :root {
+            /* LIGHT THEME (Default) */
+            --text-color: #000000;
+            --accent-color: #003e8a; 
+            --link-bg: rgba(255, 255, 255, 0.85);
+            --link-hover-bg: #003e8a;
+            --link-hover-text: #ffffff;
+            --secondary-text: #000000;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.6);
+            --canvas-overlay: rgba(255, 255, 255, 0.4);
+            --max-width: 800px;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            --bg-image: url('https://wallpapers.com/images/high/cute-pixel-desktop-d7gl7sto81nnnu0t.webp&auto=format&fit=crop');
+        }
+
+        /* DARK THEME */
+        [data-theme="dark"] {
+            --text-color: #e0e0e0;
+            --accent-color: #60a5fa;
+            --link-bg: rgba(30, 30, 30, 0.85);
+            --link-hover-bg: #60a5fa;
+            --link-hover-text: #000000;
+            --secondary-text: #dddcdc;
+            --border-color: rgba(255, 255, 255, 0.2);
+            --card-bg: rgba(0, 0, 0, 0.3);
+            --canvas-overlay: rgba(0, 0, 0, 0.55);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-main);
+            color: var(--text-color);
+            line-height: 1.6;
+            position: relative;
+            transition: color 0.3s ease;
+            background-image: var(--bg-image);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        /* --- PIXEL CANVAS LAYER --- */
+        #pixel-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background-color: var(--canvas-overlay);
+            backdrop-filter: blur(2px);
+            transition: background-color 0.3s ease;
+        }
+
+        /* --- LAYOUT --- */
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 20px 60px 20px; }
+
+        /* --- LINKS --- */
+        a {
+            color: var(--accent-color); text-decoration: none;
+            background-color: var(--link-bg); backdrop-filter: blur(4px);
+            padding: 2px 8px; border-radius: 6px;
+            transition: all 0.2s ease; display: inline-block; font-weight: 500;
+        }
+        a:hover {
+            background-color: var(--link-hover-bg); color: var(--link-hover-text);
+            transform: translateY(-2px); box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            padding: 20px 0; display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;
+            background: transparent; backdrop-filter: none; box-shadow: none;
+            border-bottom: 1px solid var(--border-color);
+            padding-left: 0; padding-right: 0; border-radius: 0;
+        }
+        
+        .nav-links a {
+            color: var(--secondary-text); margin-left: 10px; font-size: 0.9rem;
+            background-color: rgba(255, 255, 255, 0.15); 
+            backdrop-filter: blur(4px); border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 4px 12px; border-radius: 20px;
+        }
+        
+        .nav-links a:hover { 
+            background-color: var(--link-hover-bg); color: var(--link-hover-text);
+        }
+
+        /* LOGO */
+        .logo { 
+            background: transparent !important; padding: 0 !important; display: flex; align-items: center;
+        }
+        .logo img { height: 40px; width: auto; object-fit: contain; }
+
+        /* --- SECTIONS --- */
+        section { margin-bottom: 60px; }
+        h1 { font-size: 2.5rem; margin-bottom: 10px; letter-spacing: -1px; }
+        h2 { font-size: 1.5rem; margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; display: inline-block; }
+        h3 { font-size: 1.1rem; margin-bottom: 5px; color: var(--text-color); }
+        p { margin-bottom: 15px; color: var(--secondary-text); }
+
+        /* --- CARDS --- */
+        .entry {
+            margin-bottom: 30px; padding: 20px; border-left: 4px solid var(--accent-color);
+            background: var(--card-bg); border-radius: 0 8px 8px 0;
+        }
+        .entry-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 10px; }
+        .date { font-size: 0.85rem; color: var(--secondary-text); }
+        .tech-stack { 
+            font-size: 0.8rem; font-family: monospace; color: var(--accent-color); 
+            border: 1px solid var(--border-color); padding: 2px 8px; border-radius: 12px;
+            background: var(--link-bg);
+        }
+
+        /* --- PUBLICATIONS --- */
+        .publication { margin-bottom: 20px; }
+        .publication-title { 
+            font-weight: 700; font-size: 1.1rem; display: inline-block;
+            background-color: transparent; padding: 0; backdrop-filter: none; transition: all 0.2s ease;
+        }
+        .publication-title:hover {
+            background-color: var(--link-hover-bg); color: var(--link-hover-text) !important;
+            padding: 4px 12px; border-radius: 6px; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .publication-venue { font-style: italic; font-size: 0.9rem; color: var(--secondary-text); margin-top: 5px; display: block; }
+        
+        /* --- SECTION LABELS --- */
+        .section-label {
+            margin: 40px 0 15px 0; font-weight: 700; font-size: 1rem; 
+            text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;
+            border-bottom: 2px solid var(--border-color); display: inline-block; padding-bottom: 5px;
+        }
+
+        /* --- NEW: UNIFIED BUTTON STYLE --- */
+        .view-all-btn {
+            display: inline-block;
+            padding: 10px 24px;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 30px;
+            border: 1px solid var(--accent-color);
+            background-color: var(--link-bg);
+            color: var(--accent-color);
+            transition: all 0.3s ease;
+        }
+        .view-all-btn:hover {
+            background-color: var(--accent-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        footer { text-align: center; font-size: 0.8rem; color: var(--secondary-text); padding-top: 40px; border-top: 1px solid var(--border-color); padding-bottom: 20px; }
+
+        /* --- THEME TOGGLE --- */
+        .theme-toggle {
+            position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px;
+            border-radius: 50%; background: var(--link-bg); border: 1px solid var(--border-color);
+            color: var(--text-color); font-size: 1.2rem; cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); backdrop-filter: blur(5px); z-index: 100;
+            display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;
+        }
+        .theme-toggle:hover { transform: scale(1.1); background: var(--accent-color); color: white; border-color: transparent; }
+
+        @media (max-width: 600px) { .nav-links { display: none; } h1 { font-size: 2rem; } .theme-toggle { bottom: 20px; right: 20px; width: 40px; height: 40px; } }
+    </style>
+</head>
+<body>
+
+    <canvas id="pixel-bg"></canvas>
+    <button class="theme-toggle" id="theme-btn" aria-label="Toggle Dark Mode">🌙</button>
+
+    <div class="container">
+        <nav>
+            <a href="#" class="logo"><img src="final.png" alt="Logo"></a>
+            <div class="nav-links">
+                <a href="#about" style="background-color: var(--accent-color); color: white;">Home</a>
+                <a href="#publications">Publications</a>
+                <a href="projects.html">Projects</a>
+                <a href="experience.html">Experience</a>
+                <a href="academics.html">Academics</a>
+            </div>
+        </nav>
+
+        <section id="about">
+            <h1>Hello, it's Neermita!</h1>
+            <p>
+                I'm an undergraduate researcher and engineer currently majoring in <strong>Computer Science</strong> at <strong>IIT Jodhpur</strong>, with a strong interest in the intersection of artificial intelligence and biological systems.
+                My research focuses on leveraging applied AI/ML and deep learning to solve challenging problems in healthcare, with a focus on <strong> medical image analysis</strong>, <strong>biomedical signal processing</strong> and <strong>neuroscience</strong>.
+                <br>
+                I'm also interested in developing edge-deployable healthcare solutions, centering on <strong>hardware–software co-design</strong> and <strong> edge AI</strong>.
+                
+                Currently, I'm working as an undergraduate researcher at the CSE, SAIDE, EE, and BSBE departments, and as a Teaching Assistant for Pattern Recognition and Machine Learning (CSL2050). I will soon be joining <strong>Warner Bros. Discovery</strong> as a Software Development Engineer.
+            </p>
+            <p>
+                <a href="https://scholar.google.com/citations?user=e60hfhgAAAAJ&hl=en">Google Scholar</a>
+                <a href="https://github.com/Neermita18">GitHub</a> 
+                <a href="https://www.linkedin.com/in/neermita-bhattacharya-6317511b0/">LinkedIn</a>
+                <a href="mailto:nemowbio@gmail.com">Email</a> 
+            </p>
+        </section>
+        
+        <section id="publications">
+            <h2>Publications</h2>
+            <div style="margin: 20px 0 10px 0; font-weight: 700; font-size: 1.2rem; opacity: 0.7;">2026</div>
+            <div class="entry">
+                <div class="entry-header">
+                    <a href="#" class="publication-title">A Graph-Based Methodology for Dynamic KV-Cache Compression in Transformer Inference</a>
+                    <span class="date">IEEE International Symposium on Circuits and Systems (ISCAS), 2026</span>
+                </div>
+                <p style="font-size: 0.9rem; margin-bottom: 10px;">
+                    <strong>Neermita Bhattacharya</strong>, Shyam Sathvik, Abhishek Yadav, Ayush Dixit, Binod Kumar
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                    <span class="tech-stack">Transformers</span>
+                    <span class="tech-stack">KV-Cache</span>
+                    <span class="tech-stack">Large language models (LLMs)</span>
+                    <span class="tech-stack">Latency</span>
+                    <span class="tech-stack">Token Generation</span>
+                    <span class="tech-stack">Euclidean Distance</span>
+                </div>
+            </div>
+
+            <div style="margin: 30px 0 10px 0; font-weight: 700; font-size: 1.2rem; opacity: 0.7;">2024</div>
+            <div class="entry">
+                <div class="entry-header">
+                    <a href="https://www.biorxiv.org/content/10.1101/2024.09.19.613932v1" class="publication-title">Innate Immune Receptor NLRX1: Potential Modulator of Glioblastoma Pathophysiology</a>
+                    <span class="date">BioRxiv, 2024</span>
+                </div>
+                <p style="font-size: 0.9rem; margin-bottom: 10px;">
+                   Durgesh Meena, Divya Shivakumar, Sushmita Rajkhowa, <strong>Neermita Bhattacharya</strong>, Priya Solanki, Shalini Chhipa, Vikas Janu, Mayank Garg, Jaskaran Singh Gosal, Sushmita Jha
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                    <span class="tech-stack">Glioblastoma</span>
+                    <span class="tech-stack">Immunology</span>
+                    <span class="tech-stack">Oncology</span>
+                    <span class="tech-stack">NLRX1</span>
+                    <span class="tech-stack">Innate Immunity</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>YOLOv8 Mitosis Detection</h3>
+                    <span class="tech-stack">Python, PyTorch, ONNX</span>
+                </div>
+                <p>Developed a custom object detection pipeline for analyzing whole-slide medical images. Optimized model inference using ONNX runtime, achieving a 40% speedup in processing large histology slides.</p>
+                <a href="#">View on GitHub &rarr;</a>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>RTL to Netlist Generator with RL</h3>
+                    <span class="tech-stack">Verilog, Python, RL</span>
+                </div>
+                <p>Experimental project exploring the use of RL agents to optimize synthesis parameters for generating netlists from Verilog code. Reduced area utilization by 15% on benchmark circuits.</p>
+            </div>
+
+            <div style="margin-top: 30px; text-align: center;">
+                <a href="projects.html" class="view-all-btn">View All Projects &rarr;</a>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Experience</h2>
+
+             <div class="entry">
+                    <div class="entry-header">
+                        <h3>Teaching Assistant</h3>
+                        <span class="date">Jan 2026 - Present</span>
+                    </div>
+                    <p><strong>Department of CSE, IIT Jodhpur</strong><br>
+                    Teaching Assistant for the <strong>Pattern Recognition and Machine Learning (CSL2050)</strong> course. Mentoring students, grading assignments, and conducting labs on the fundamentals of Machine Learning.</p>
+                </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Undergraduate Researcher (Neuroscience)</h3>
+                    <span class="date">Jan 2026 - Present</span>
+                </div>
+                <p><strong>MuraliLab of Cognitive and Computational Neuroscience, IIT Jodhpur</strong><br>
+                Developing computational models to characterize <strong>Freezing of Gait (FOG)</strong> in Parkinson’s Disease. Specifically focusing on <strong>turn estimation</strong> algorithms to quantify gait abnormalities and predict freezing episodes.</p>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Software Development Engineer Intern</h3>
+                    <span class="date">May 2025 - Jul 2025</span>
+                </div>
+                <p><strong>Warner Bros. Discovery</strong><br>
+                Implemented a comprehensive observability framework for Schema Studio covering centralized logging, real-time
+                monitoring of health and performance metrics, and proactive alerting across all environments.
+                Conducted end-to-end quality assurance testing for the MVP release and Boltification of Schema Studio and integrated functional APIs within frontend and backend microservices.
+             
+                </div>
+
+            
+
+            <div style="margin-top: 30px; text-align: center;">
+                <a href="experience.html" class="view-all-btn">View All Experiences &rarr;</a>
+            </div>
+        </section>
+
+
+        <footer>
+            &copy; 2026 Neermita Bhattacharya. All rights reserved.
+        </footer>
+    </div>
+
+    <script>
+        const toggleBtn = document.getElementById('theme-btn');
+        const html = document.documentElement;
+        const savedTheme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme) { html.setAttribute('data-theme', savedTheme); updateIcon(savedTheme); } 
+        else if (systemDark) { html.setAttribute('data-theme', 'dark'); updateIcon('dark'); }
+        toggleBtn.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
+        });
+        function updateIcon(theme) { toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙'; }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        const canvas = document.getElementById('pixel-bg');
+        const ctx = canvas.getContext('2d');
+        let width, height, mouseX = -100, mouseY = -100;
+        const pixelSize = 25, decayRate = 0.05, gridOpacity = 0.05;
+        let cols, rows, grid = [];
+        function init() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            cols = Math.ceil(width / pixelSize);
+            rows = Math.ceil(height / pixelSize);
+            grid = new Float32Array(cols * rows).fill(0);
+        }
+        window.addEventListener('mousemove', e => {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = e.clientX - rect.left; mouseY = e.clientY - rect.top;
+        });
+        window.addEventListener('resize', init);
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.strokeStyle = `rgba(128, 128, 128, ${gridOpacity})`; ctx.lineWidth = 1; ctx.beginPath();
+            for (let x = 0; x <= width; x += pixelSize) { ctx.moveTo(x, 0); ctx.lineTo(x, height); }
+            for (let y = 0; y <= height; y += pixelSize) { ctx.moveTo(0, y); ctx.lineTo(width, y); }
+            ctx.stroke();
+            const currentCol = Math.floor(mouseX / pixelSize);
+            const currentRow = Math.floor(mouseY / pixelSize);
+            if (currentCol >= 0 && currentCol < cols && currentRow >= 0 && currentRow < rows) { grid[currentRow * cols + currentCol] = 1.0; }
+            for (let i = 0; i < grid.length; i++) {
+                if (grid[i] > 0) {
+                    const c = i % cols; const r = Math.floor(i / cols);
+                    ctx.fillStyle = `hsla(210, 80%, 60%, ${grid[i]})`; 
+                    ctx.fillRect(c * pixelSize, r * pixelSize, pixelSize, pixelSize);
+                    grid[i] -= decayRate;
+                }
+            }
+            requestAnimationFrame(draw);
+        }
+        init(); draw();
+    </script>
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academics | Neermita</title>
+    <style>
+        /* --- EXACT CSS COPY FROM INDEX.HTML FOR CONSISTENCY --- */
+        :root {
+            /* LIGHT THEME (Default) */
+            --text-color: #000000;
+            --accent-color: #003e8a; 
+            --link-bg: rgba(255, 255, 255, 0.85);
+            --link-hover-bg: #003e8a;
+            --link-hover-text: #ffffff;
+            --secondary-text: #000000;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.6);
+            --canvas-overlay: rgba(255, 255, 255, 0.4);
+            --max-width: 800px;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            --bg-image: url('https://wallpapers.com/images/high/cute-pixel-desktop-d7gl7sto81nnnu0t.webp&auto=format&fit=crop');
+        }
+
+        /* DARK THEME */
+        [data-theme="dark"] {
+            --text-color: #e0e0e0;
+            --accent-color: #60a5fa;
+            --link-bg: rgba(30, 30, 30, 0.85);
+            --link-hover-bg: #60a5fa;
+            --link-hover-text: #000000;
+            --secondary-text: #dddcdc;
+            --border-color: rgba(255, 255, 255, 0.2);
+            --card-bg: rgba(0, 0, 0, 0.3);
+            --canvas-overlay: rgba(0, 0, 0, 0.55);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-main);
+            color: var(--text-color);
+            line-height: 1.6;
+            position: relative;
+            transition: color 0.3s ease;
+            background-image: var(--bg-image);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        #pixel-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background-color: var(--canvas-overlay);
+            backdrop-filter: blur(2px);
+            transition: background-color 0.3s ease;
+        }
+
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 20px 60px 20px; }
+
+        a {
+            color: var(--accent-color); text-decoration: none;
+            background-color: var(--link-bg); backdrop-filter: blur(4px);
+            padding: 2px 8px; border-radius: 6px;
+            transition: all 0.2s ease; display: inline-block; font-weight: 500;
+        }
+        a:hover {
+            background-color: var(--link-hover-bg); color: var(--link-hover-text);
+            transform: translateY(-2px); box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        nav {
+            padding: 20px 0; display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;
+            background: transparent; backdrop-filter: none; box-shadow: none;
+            border-bottom: 1px solid var(--border-color);
+            padding-left: 0; padding-right: 0; border-radius: 0;
+        }
+        
+        .nav-links a {
+            color: var(--secondary-text); margin-left: 10px; font-size: 0.9rem;
+            background-color: rgba(255, 255, 255, 0.15); 
+            backdrop-filter: blur(4px); border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 4px 12px; border-radius: 20px;
+        }
+        
+        .nav-links a:hover { 
+            background-color: var(--link-hover-bg); color: var(--link-hover-text);
+        }
+
+        .logo { 
+            background: transparent !important; padding: 0 !important; display: flex; align-items: center;
+        }
+        .logo img { height: 40px; width: auto; object-fit: contain; }
+
+        section { margin-bottom: 60px; }
+        h1 { font-size: 2.5rem; margin-bottom: 30px; letter-spacing: -1px; }
+        h3 { font-size: 1.1rem; margin-bottom: 5px; color: var(--text-color); }
+        p { margin-bottom: 15px; color: var(--secondary-text); }
+
+        .entry {
+            margin-bottom: 30px; padding: 20px; border-left: 4px solid var(--accent-color);
+            background: var(--card-bg); border-radius: 0 8px 8px 0;
+        }
+        .entry-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 10px; }
+        .date { font-size: 0.85rem; color: var(--secondary-text); }
+
+        .tech-stack { 
+            font-size: 0.8rem; font-family: monospace; color: var(--accent-color); 
+            border: 1px solid var(--border-color); padding: 2px 8px; border-radius: 12px;
+            background: var(--link-bg);
+        }
+
+        .section-label {
+            margin: 40px 0 15px 0; font-weight: 700; font-size: 1rem; 
+            text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;
+            border-bottom: 2px solid var(--border-color); display: inline-block; padding-bottom: 5px;
+        }
+
+        footer { text-align: center; font-size: 0.8rem; color: var(--secondary-text); padding-top: 40px; border-top: 1px solid var(--border-color); padding-bottom: 20px; }
+
+        .theme-toggle {
+            position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px;
+            border-radius: 50%; background: var(--link-bg); border: 1px solid var(--border-color);
+            color: var(--text-color); font-size: 1.2rem; cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); backdrop-filter: blur(5px); z-index: 100;
+            display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;
+        }
+        .theme-toggle:hover { transform: scale(1.1); background: var(--accent-color); color: white; border-color: transparent; }
+
+        @media (max-width: 600px) { .nav-links { display: none; } h1 { font-size: 2rem; } .theme-toggle { bottom: 20px; right: 20px; width: 40px; height: 40px; } }
+    </style>
+</head>
+<body>
+
+    <canvas id="pixel-bg"></canvas>
+    <button class="theme-toggle" id="theme-btn" aria-label="Toggle Dark Mode">🌙</button>
+
+    <div class="container">
+        <nav>
+            <a href="index.html" class="logo"><img src="final.png" alt="Logo"></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                 <a href="index.html#publications">Publications</a>
+                <a href="projects.html">Projects</a>
+                <a href="experience.html">Experience</a>
+                <a href="academics.html" style="background-color: var(--accent-color); color: white;">Academics</a>
+            </div>
+        </nav>
+
+        <h1>Academics</h1>
+
+        <div class="section-label">Education</div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <h3>B.Tech in Computer Science and Engineering</h3>
+                <span class="date">2022 - 2026 (Expected)</span>
+            </div>
+            <p><strong>Indian Institute of Technology, Jodhpur</strong></p>
+            <p><strong>CGPA:</strong> 9.2 / 10.0</p>
+            <p>Undergraduate Researcher across the CSE, SAIDE, EE, and BSBE Departments. Teaching Assistant for <em>Pattern Recognition and Machine Learning (CSL2050)</em> course. Former member of <em>Pheme: The Newsletter Club</em>.</p>
+        </div>
+
+        <div class="section-label">Relevant Coursework</div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <h3>Computer Science & AI</h3>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;">
+                <span class="tech-stack">Pattern Recognition & Machine Learning</span>
+                <span class="tech-stack">Deep Learning</span>
+                <span class="tech-stack">Computer Vision</span>
+                <span class="tech-stack">Speech Understanding</span>
+                <span class="tech-stack">Software Engineering</span>
+                <span class="tech-stack">Data Structures & Algorithms</span>
+                <span class="tech-stack">Operating Systems</span>
+                <span class="tech-stack">Computer Architecture</span>
+                <span class="tech-stack">Computer Networks</span>
+            </div>
+        </div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <h3>Electrical & Hardware</h3>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;">
+                <span class="tech-stack">Digital Design</span>
+                <span class="tech-stack">Signals and Systems</span>
+                <span class="tech-stack">Embedded Systems</span>
+                <span class="tech-stack">Hardware-Software Co-Design</span>
+                <span class="tech-stack">Formal Verification</span>
+                <span class="tech-stack">AI for Electronic Design Automation (EDA)</span>
+                <span class="tech-stack">Digital Image Analysis</span>
+                <span class="tech-stack">Hardware for AI</span>
+            </div>
+        </div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <h3>Bioengineering and Neuroscience</h3>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;">
+                <span class="tech-stack">Sensation and Perception</span>
+                <span class="tech-stack">Quantitative Physiology</span>
+                <span class="tech-stack">Modern Approaches of Drug Designing</span>
+                <span class="tech-stack">Brain Computer Interfaces</span>
+            </div>
+        </div>
+
+        <div class="section-label">Certifications</div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <h3>Quantitative Single Cell Biology Workshop</h3>
+                <span class="date">Koita Centre for Digital Health (KCDH) - IIT Bombay</span>
+            </div>
+            <p>A 2-day workshop covering mapping and quantization, normalization, exploratory data analysis, data harmonization and pathway analysis of single-cell RNA-seq data.</p>
+        </div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <h3>Cheminformatics with RDkit</h3>
+                <span class="date">NyBerMan Bioinformatics Europe</span>
+            </div>
+            <p>Gained proficiency in computational chemistry workflows using Python and the RDKit library</p>
+        </div>
+
+        <footer>
+            &copy; 2026 Neermita Bhattacharya. All rights reserved.
+        </footer>
+    </div>
+
+    <script>
+        const toggleBtn = document.getElementById('theme-btn');
+        const html = document.documentElement;
+        const savedTheme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme) { html.setAttribute('data-theme', savedTheme); updateIcon(savedTheme); } 
+        else if (systemDark) { html.setAttribute('data-theme', 'dark'); updateIcon('dark'); }
+        toggleBtn.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
+        });
+        function updateIcon(theme) { toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙'; }
+
+        const canvas = document.getElementById('pixel-bg');
+        const ctx = canvas.getContext('2d');
+        let width, height, mouseX = -100, mouseY = -100;
+        const pixelSize = 25, decayRate = 0.05, gridOpacity = 0.05;
+        let cols, rows, grid = [];
+        function init() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            cols = Math.ceil(width / pixelSize);
+            rows = Math.ceil(height / pixelSize);
+            grid = new Float32Array(cols * rows).fill(0);
+        }
+        window.addEventListener('mousemove', e => {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = e.clientX - rect.left; mouseY = e.clientY - rect.top;
+        });
+        window.addEventListener('resize', init);
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.strokeStyle = `rgba(128, 128, 128, ${gridOpacity})`; ctx.lineWidth = 1; ctx.beginPath();
+            for (let x = 0; x <= width; x += pixelSize) { ctx.moveTo(x, 0); ctx.lineTo(x, height); }
+            for (let y = 0; y <= height; y += pixelSize) { ctx.moveTo(0, y); ctx.lineTo(width, y); }
+            ctx.stroke();
+            const currentCol = Math.floor(mouseX / pixelSize);
+            const currentRow = Math.floor(mouseY / pixelSize);
+            if (currentCol >= 0 && currentCol < cols && currentRow >= 0 && currentRow < rows) { grid[currentRow * cols + currentCol] = 1.0; }
+            for (let i = 0; i < grid.length; i++) {
+                if (grid[i] > 0) {
+                    const c = i % cols; const r = Math.floor(i / cols);
+                    ctx.fillStyle = `hsla(210, 80%, 60%, ${grid[i]})`; 
+                    ctx.fillRect(c * pixelSize, r * pixelSize, pixelSize, pixelSize);
+                    grid[i] -= decayRate;
+                }
+            }
+            requestAnimationFrame(draw);
+        }
+        init(); draw();
+    </script>
+</body>
+</html>

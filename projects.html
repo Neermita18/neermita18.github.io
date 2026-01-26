@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Neermita</title>
+    <style>
+        /* --- 1. VARIABLES & THEMES (COPIED EXACTLY FROM INDEX.HTML) --- */
+        :root {
+            /* LIGHT THEME (Default) */
+            --text-color: #000000;
+            --accent-color: #003e8a; /* Updated to match index.html */
+            --link-bg: rgba(255, 255, 255, 0.85);
+            --link-hover-bg: #003e8a; /* Updated to match index.html */
+            --link-hover-text: #ffffff;
+            --secondary-text: #000000;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.6); /* Updated opacity */
+            --canvas-overlay: rgba(255, 255, 255, 0.4); /* Updated opacity */
+            --max-width: 800px;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            --bg-image: url('https://wallpapers.com/images/high/cute-pixel-desktop-d7gl7sto81nnnu0t.webp&auto=format&fit=crop');
+        }
+
+        /* DARK THEME */
+        [data-theme="dark"] {
+            --text-color: #e0e0e0;
+            --accent-color: #60a5fa;
+            --link-bg: rgba(30, 30, 30, 0.85);
+            --link-hover-bg: #60a5fa;
+            --link-hover-text: #000000;
+            --secondary-text: #dddcdc;
+            --border-color: rgba(255, 255, 255, 0.2);
+            --card-bg: rgba(0, 0, 0, 0.3);
+            --canvas-overlay: rgba(0, 0, 0, 0.55);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-main);
+            color: var(--text-color);
+            line-height: 1.6;
+            position: relative;
+            transition: color 0.3s ease;
+            background-image: var(--bg-image);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        /* --- PIXEL CANVAS LAYER --- */
+        #pixel-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background-color: var(--canvas-overlay);
+            backdrop-filter: blur(2px);
+            transition: background-color 0.3s ease;
+        }
+
+        /* --- LAYOUT --- */
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 20px 60px 20px; }
+
+        /* --- LINKS --- */
+        a {
+            color: var(--accent-color); text-decoration: none;
+            background-color: var(--link-bg); backdrop-filter: blur(4px);
+            padding: 2px 8px; border-radius: 6px;
+            transition: all 0.2s ease; display: inline-block; font-weight: 500;
+        }
+        a:hover {
+            background-color: var(--link-hover-bg); color: var(--link-hover-text);
+            transform: translateY(-2px); box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            padding: 20px 0; display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;
+            background: transparent; backdrop-filter: none; box-shadow: none;
+            border-bottom: 1px solid var(--border-color);
+            padding-left: 0; padding-right: 0; border-radius: 0;
+        }
+        
+        .nav-links a {
+            color: var(--secondary-text); margin-left: 10px; font-size: 0.9rem;
+            background-color: rgba(255, 255, 255, 0.15); 
+            backdrop-filter: blur(4px); border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 4px 12px; border-radius: 20px;
+        }
+        
+        .nav-links a:hover { 
+            background-color: var(--link-hover-bg); color: var(--link-hover-text);
+        }
+
+        /* LOGO */
+        .logo { 
+            background: transparent !important; padding: 0 !important; display: flex; align-items: center;
+        }
+        .logo img { height: 40px; width: auto; object-fit: contain; }
+
+        /* --- SECTIONS --- */
+        section { margin-bottom: 60px; }
+        h1 { font-size: 2.5rem; margin-bottom: 30px; letter-spacing: -1px; }
+        h3 { font-size: 1.1rem; margin-bottom: 5px; color: var(--text-color); }
+        p { margin-bottom: 15px; color: var(--secondary-text); }
+
+        /* --- CARDS --- */
+        .entry {
+            margin-bottom: 30px; padding: 20px; border-left: 4px solid var(--accent-color);
+            background: var(--card-bg); border-radius: 0 8px 8px 0;
+        }
+        .entry-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 10px; }
+        .date { font-size: 0.85rem; color: var(--secondary-text); }
+        .tech-stack { 
+            font-size: 0.8rem; font-family: monospace; color: var(--accent-color); 
+            border: 1px solid var(--border-color); padding: 2px 8px; border-radius: 12px;
+            background: var(--link-bg);
+        }
+
+        /* --- SECTION LABELS --- */
+        .section-label {
+            margin: 40px 0 15px 0; font-weight: 700; font-size: 1rem; 
+            text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;
+            border-bottom: 2px solid var(--border-color); display: inline-block; padding-bottom: 5px;
+        }
+
+        footer { text-align: center; font-size: 0.8rem; color: var(--secondary-text); padding-top: 40px; border-top: 1px solid var(--border-color); padding-bottom: 20px; }
+
+        /* --- THEME TOGGLE --- */
+        .theme-toggle {
+            position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px;
+            border-radius: 50%; background: var(--link-bg); border: 1px solid var(--border-color);
+            color: var(--text-color); font-size: 1.2rem; cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); backdrop-filter: blur(5px); z-index: 100;
+            display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;
+        }
+        .theme-toggle:hover { transform: scale(1.1); background: var(--accent-color); color: white; border-color: transparent; }
+
+        @media (max-width: 600px) { .nav-links { display: none; } h1 { font-size: 2rem; } .theme-toggle { bottom: 20px; right: 20px; width: 40px; height: 40px; } }
+    </style>
+</head>
+<body>
+
+    <canvas id="pixel-bg"></canvas>
+    <button class="theme-toggle" id="theme-btn" aria-label="Toggle Dark Mode">🌙</button>
+
+    <div class="container">
+        <nav>
+            <a href="index.html" class="logo"><img src="final.png" alt="Logo"></a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#publications">Publications</a>
+                <a href="projects.html" style="background-color: var(--accent-color); color: white;">Projects</a>
+                <a href="experience.html">Experience</a>
+                <a href="academics.html">Academics</a>
+            </div>
+        </nav>
+
+        <h1>Projects</h1>
+
+        <div class="entry">
+            <div class="entry-header">
+                <h3>YOLOv8 Mitosis Detection</h3>
+                <span class="tech-stack">Python, PyTorch, ONNX, WIP</span>
+            </div>
+            <p>Developed a custom object detection pipeline for analyzing whole-slide medical images. Currently optimizing model inference speeds using ONNX runtime to enable real-time processing of large histology slides.</p>
+            <a href="https://github.com/Neermita18/Digital_Pathology/tree/main/Mitosis_Detection">View on GitHub &rarr;</a>
+        </div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <h3>Truth on Trial</h3>
+                <span class="tech-stack">PyTorch, Graph Attention Networks, Audio Processing</span>
+            </div>
+            <p>Adapted the AASIST architecture (Graph Attention Networks) to perform binary lie detection on speech signals. Validated the model's robustness using cross-lingual datasets (English RLDD and Romanian RODeCAR) to classify courtroom and criminal investigation testimonies.</p>
+            <a href="https://github.com/Neermita18/Speech_Understanding_Course_Project">View on GitHub &rarr;</a>
+        </div>
+
+         <div class="entry">
+            <div class="entry-header">
+                <h3>Hybrid sEMG Gesture Recognition</h3>
+                <span class="tech-stack">PyTorch, Signal Processing, CNN</span>
+            </div>
+            <p>Developed a hybrid deep learning system fusing raw sEMG signals (via Multi-scale 1D-CNNs) with handcrafted time-frequency features to classify hand gestures. Implemented a robust preprocessing pipeline including bandpass filtering, rectification, and envelope extraction to handle inter-session variability.</p>
+            <a href="https://github.com/Neermita18/NeuroML/tree/main/Synapse_Neurotech">View on GitHub &rarr;</a>
+        </div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <h3>Speech Emotion Recognition (SER)</h3>
+                <span class="tech-stack">Transformers, Wav2Vec2, Random Forest</span>
+            </div>
+            <p>Implemented a hybrid emotion recognition pipeline by extracting acoustic embeddings using the Wav2Vec2 transformer model and classifying them with Random Forest. Benchmarked performance against CNN and MLP baselines on standard speech datasets.</p>
+            <a href="https://github.com/Neermita18/Speech-Emotion-Recognition-Methods">View on GitHub &rarr;</a>
+        </div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <h3>ChemSync</h3>
+                <span class="tech-stack">Python, RDKit, Streamlit</span>
+            </div>
+            <p>Developed an interactive cheminformatics application to filter molecules based on Lipinski’s Rule of 5. Features 3D structural visualization and comparative similarity analysis using both Morgan Fingerprints (Tanimoto) and SMILES embeddings (Cosine).</p>
+            <a href="https://github.com/Neermita18/ChemSync">View on GitHub &rarr;</a>
+        </div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <h3>ST-UNet for IR-Drop Prediction</h3>
+                <span class="tech-stack">PyTorch, 3D-CNN, VLSI CAD</span>
+            </div>
+            <p>Designed a deep learning model to predict static IR-drop on VLSI chip layouts. The architecture fuses 2D spatial power maps with 3D transient power sequences to instantly identify voltage hotspots, offering a fast alternative to tedious EDA simulations.</p>
+            <a href="https://github.com/Neermita18/IR_Drop_AI_for_EDA">View on GitHub &rarr;</a>
+        </div>
+
+        <div class="entry">
+            <div class="entry-header">
+                <h3>Embedded RL: Self-Learning Pong</h3>
+                <span class="tech-stack">C, STM32, Reinforcement Learning</span>
+            </div>
+            <p>Implemented a Q-Learning agent on an STM32F4 microcontroller using bare-metal C (register-level). The agent learns to play Pong from scratch via on-device training, featuring custom SPI drivers for the ILI9341 display and optimized state-space discretization.</p>
+            <a href="https://github.com/Neermita18/Reinforcement-Learning-STM32F429-Digital-Systems-Laboratory-Project">View on GitHub &rarr;</a>
+        </div>
+
+        <footer>
+            &copy; 2026 Neermita Bhattacharya. All rights reserved.
+        </footer>
+    </div>
+
+    <script>
+        const toggleBtn = document.getElementById('theme-btn');
+        const html = document.documentElement;
+        const savedTheme = localStorage.getItem('theme');
+        const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme) { html.setAttribute('data-theme', savedTheme); updateIcon(savedTheme); } 
+        else if (systemDark) { html.setAttribute('data-theme', 'dark'); updateIcon('dark'); }
+        toggleBtn.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateIcon(newTheme);
+        });
+        function updateIcon(theme) { toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙'; }
+
+        const canvas = document.getElementById('pixel-bg');
+        const ctx = canvas.getContext('2d');
+        let width, height, mouseX = -100, mouseY = -100;
+        const pixelSize = 25, decayRate = 0.05, gridOpacity = 0.05;
+        let cols, rows, grid = [];
+        function init() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            cols = Math.ceil(width / pixelSize);
+            rows = Math.ceil(height / pixelSize);
+            grid = new Float32Array(cols * rows).fill(0);
+        }
+        window.addEventListener('mousemove', e => {
+            const rect = canvas.getBoundingClientRect();
+            mouseX = e.clientX - rect.left; mouseY = e.clientY - rect.top;
+        });
+        window.addEventListener('resize', init);
+        function draw() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.strokeStyle = `rgba(128, 128, 128, ${gridOpacity})`; ctx.lineWidth = 1; ctx.beginPath();
+            for (let x = 0; x <= width; x += pixelSize) { ctx.moveTo(x, 0); ctx.lineTo(x, height); }
+            for (let y = 0; y <= height; y += pixelSize) { ctx.moveTo(0, y); ctx.lineTo(width, y); }
+            ctx.stroke();
+            const currentCol = Math.floor(mouseX / pixelSize);
+            const currentRow = Math.floor(mouseY / pixelSize);
+            if (currentCol >= 0 && currentCol < cols && currentRow >= 0 && currentRow < rows) { grid[currentRow * cols + currentCol] = 1.0; }
+            for (let i = 0; i < grid.length; i++) {
+                if (grid[i] > 0) {
+                    const c = i % cols; const r = Math.floor(i / cols);
+                    ctx.fillStyle = `hsla(210, 80%, 60%, ${grid[i]})`; 
+                    ctx.fillRect(c * pixelSize, r * pixelSize, pixelSize, pixelSize);
+                    grid[i] -= decayRate;
+                }
+            }
+            requestAnimationFrame(draw);
+        }
+        init(); draw();
+    </script>
+</body>
+</html>
